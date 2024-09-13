@@ -1,13 +1,13 @@
 import {
-    Table,
-    TableBody,
-    TableCaption,
-    TableCell,
-    TableFooter,
-    TableHead,
-    TableHeader,
-    TableRow,
+  Table,
+  TableBody,
+  TableCell,
+  TableFooter,
+  TableHead,
+  TableHeader,
+  TableRow,
 } from "@/components/ui/table";
+import { useNavigate } from "react-router-dom";
 
 const books = [
   {
@@ -73,44 +73,45 @@ const books = [
 ];
 
 export default function TableMain() {
+  const navigate = useNavigate();
+
   return (
     <div className="h-4/5 max-h-4/5 overflow-y-scroll my-14 ">
-
-    <Table >
-      <TableHeader>
-        <TableRow>
-          <TableHead>Book</TableHead>
-          <TableHead>Author</TableHead>
-          <TableHead>Publish Year</TableHead>
-          <TableHead className="text-right">Available</TableHead>
-        </TableRow>
-      </TableHeader>
-      <TableBody>
-        {books.map((book) => (
-          <TableRow
-            className="cursor-pointer h-14"
-            onClick={() => console.log(book.bookName)}
-          >
-            <TableCell className="font-medium">{book.author}</TableCell>
-            <TableCell>{book.bookName}</TableCell>
-            <TableCell>{book.publishYear}</TableCell>
-            <TableCell
-              className={` text-right ${
-                book.available ? "text-green-500" : "text-red-500"
-              }`}
-            >
-              {book.available ? "Available" : "Not Available"}
-            </TableCell>
+      <Table>
+        <TableHeader>
+          <TableRow>
+            <TableHead>Author</TableHead>
+            <TableHead>Book</TableHead>
+            <TableHead>Publish Year</TableHead>
+            <TableHead className="text-right">Available</TableHead>
           </TableRow>
-        ))}
-      </TableBody>
-      <TableFooter>
-        <TableRow>
-          <TableCell colSpan={3}>Total</TableCell>
-          <TableCell className="text-right">{books.length}</TableCell>
-        </TableRow>
-      </TableFooter>
-    </Table>
+        </TableHeader>
+        <TableBody>
+          {books.map((book) => (
+            <TableRow
+              className="cursor-pointer h-14"
+              onClick={() => navigate(`/${book.bookName}`)}
+            >
+              <TableCell className="font-medium">{book.author}</TableCell>
+              <TableCell>{book.bookName}</TableCell>
+              <TableCell>{book.publishYear}</TableCell>
+              <TableCell
+                className={` text-right ${
+                  book.available ? "text-green-500" : "text-red-500"
+                }`}
+              >
+                {book.available ? "Available" : "Not Available"}
+              </TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+        <TableFooter>
+          <TableRow>
+            <TableCell colSpan={3}>Total</TableCell>
+            <TableCell className="text-right">{books.length}</TableCell>
+          </TableRow>
+        </TableFooter>
+      </Table>
     </div>
   );
 }
